@@ -7,8 +7,12 @@ class App < Sinatra::Base
   end
 
   post '/' do
-    text_from_user = params[:user_text]
-
+    @analyzed_text = TextAnalyzer.new(params[:user_text])
+    @analyzed_text.most_used_letter.map do |key, value|
+      @letter = key.capitalize
+      @number = value
+    end
     erb :results
+    # binding.pry
   end
 end
